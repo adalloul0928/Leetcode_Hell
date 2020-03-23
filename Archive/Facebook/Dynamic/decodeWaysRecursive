@@ -1,0 +1,23 @@
+class Solution:
+    def numDecodings(self, s: str) -> int:
+        store = {}
+        count = 0
+
+        def recurseHelper(s):
+            nonlocal count
+            if not s:
+                count += 1
+            elif s[0] == '0': pass
+            elif s in store:
+                count += store[s]
+            else:
+                recurseHelper(s[1:])
+                if len(s) >= 2 and int(s[:2]) < 27: recurseHelper(s[2:])
+                store[s] = count
+
+        recurseHelper(s)
+        return count
+
+sol = Solution()
+input = '223'
+print(sol.numDecodings(input))
